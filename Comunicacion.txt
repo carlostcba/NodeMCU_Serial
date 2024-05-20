@@ -1,0 +1,40 @@
+Ejemplo de "S0" Status
+
+02 STX
+S0
+00
+1111
+34247025
+03 ETX
+
+Ejemplo de "S1" Activar Rele 1
+02 STX
+00
+S1
+03 ETX
+
+Ejemplo de "S2"
+02 STX
+00
+S2
+03 ETX
+
+Ejemplo de "R1" Desactivar Rele 1
+02 STX
+00
+R1
+03 ETX
+
+Ejemplo de "R2"
+02 STX
+00
+R2
+03 ETX
+
+Ejemplo de "X0" Reiniciar Placa
+
+02 STX
+00
+X0
+03 ETX
+

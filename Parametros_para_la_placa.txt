@@ -1,0 +1,105 @@
+Nesecito que me ayudes con un codigo de ARDUINO IDE agregando seis condicionales con strings ascii 
+los strings son los siguientes:
+
+En esta ocacion a modo de prueba guardar en una variable el dato del codigo interno de status code (1111)
+y otra variable con el dato (34247025)
+
+
+Ejemplo de Comandos:
+
+Recibido "S0" Status //
+
+02 STX	//inicio del comando
+00	//dos caracteres para la identificacion de la placa
+S0	//dos caracteres para el comando
+03 ETX	//caracter que indica el final de los datos y debe ser tomado como el fin del comando
+
+
+Respuesta "S0" Status //
+02 STX	//inicio del comando
+00	//dos caracteres para la identificacion de la placa
+S0	//dos caracteres para el comando
+1111	//cuatro caracteres para el codigo interno de status
+34247025	//datos generales en este caso un numero de DNI o 10252335 o una tarjeta RFID de 125Khz Wiegand 26
+03 ETX	//caracter que indica el final de los datos y debe ser tomado como el fin del comando
+
+"0x02"00111134247025"0x03"
+
+
+Respuesta a "S1" //Activa Rele 1 (Pin D3) (activa en bajo)
+02 STX //inicio del comando
+00	//dos caracteres para la identificacion de la placa
+S1	//dos caracteres para el comando
+03 ETX	//caracter que indica el final de los datos y debe ser tomado como el fin del comando
+
+Respuesta a "S2" //Activa Rele 2 (Pin D4) (activa en bajo)
+02 STX	//inicio del comando
+00	//dos caracteres para la identificacion de la placa
+S2	//dos caracteres para el comando
+03 ETX	//caracter que indica el final de los datos y debe ser tomado como el fin del comando
+
+Respuesta a "R1" //Desactiva Rele 1 (Pin D3) (desactiva en alto)
+02 STX	//inicio del comando
+00	//dos caracteres para la identificacion de la placa
+R1	//dos caracteres para el comando
+03 ETX	//caracter que indica el final de los datos y debe ser tomado como el fin del comando
+
+Respuesta a "R2" //Desactiva Rele 2 (Pin D4) (desactiva en alto)
+02 STX	//inicio del comando
+00	//dos caracteres para la identificacion de la placa
+R2	//dos caracteres para el comando
+03 ETX	//caracter que indica el final de los datos y debe ser tomado como el fin del comando
+
+Respuesta a "X0" //Reinicio (reinicia el NodeMCU)
+
+02 STX	//inicio del comando
+00	//dos caracteres para la identificacion de la placa
+X0	//dos caracteres para el comando
+03 ETX	//caracter que indica el final de los datos y debe ser tomado como el fin del comando
+
+
+
+const int relay1 = D3;
+const int relay2 = D4;
+char comandoS0_rta[] = "\x02""00111134247025""\x03"
+
+pinMode(relay1, OUTPUT);
+pinMode(relay2, OUTPUT);
+
+
+Comandos recibidos y reaccion al recibir:
+
+Comando S0:
+02 30 30 53 30 31 42 03
+char comandoS0[] = "\x02" "00S01B" "\x03";
+Serial.print(comandoS0_rta);
+
+
+Comando S1:
+02 30 30 53 31 31 41 03
+char comandoS1[] = "\x02" "00S11A" "\x03";
+digitalWrite(relay1 , LOW);
+
+
+Comando S2:
+02 30 30 53 32 31 39 03
+char comandoS2[] = "\x02" "00S219" "\x03";
+digitalWrite(relay2 , LOW);
+
+
+Comando R1:
+02 30 30 52 31 31 42 03
+char comandoR1[] = "\x02" "00R11B" "\x03";
+digitalWrite(relay1 , HIGH);
+
+
+Comando R2:
+02 30 30 52 32 31 41 03
+char comandoR2[] = "\x02" "00R21A" "\x03";
+digitalWrite(relay2 , HIGH);
+
+
+Comando X0:
+02 30 30 58 30 31 36 03
+char comandoX0[] = "\x02" "00X016" "\x03";
+ESP.restart();
