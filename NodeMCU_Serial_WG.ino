@@ -12,7 +12,10 @@ char cmdR1[] = "\x02" "00R11B" "\x03";  // Comando R1 - Desactivar Rele 1
 char cmdR2[] = "\x02" "00R21A" "\x03";  // Comando R2 - Desactivar Rele 2
 char cmdX0[] = "\x02" "00X016" "\x03";  // Comando X0 - Reiniciar
 
-// Respuesta Comando Status
+//Estructura de Respuesta Comando Status
+char stx_s0[] = "\x02" "00";
+char etx_s0[] = "1B" "\x03";
+
 char cmdS0_rta[] = "\x02""00S0111134247025""\x03"; // Respuesta Comando Status
 
 WIEGAND wg1; // Declarar Wiegand 1
