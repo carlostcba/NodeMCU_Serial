@@ -21,6 +21,8 @@ string scb3_s0 = "0";
 string scb4_s0 = "0";
 string data_s0 = "";
 
+
+//String rta_s0 = stx_s0 + scb1_s0 + scb2_s0 + scb3_s0 + scb4_s0 + data_s0 + etx_s0";
 char cmdS0_rta[] = "\x02""00S0111134247025""\x03"; // Respuesta Comando Status
 
 WIEGAND wg1; // Declarar Wiegand 1
@@ -40,6 +42,7 @@ void loop() {
     unsigned long cardCode_wg1 = wg1.getCode();
     // Construir la cadena completa antes de imprimirla
     String cardCodeStr = "\x02" "00S00800" + String(cardCode_wg1) + "\x03" + '\n';
+    // data_s0 = cardCodeStr;
     Serial.print(cardCodeStr);
   }
   // Leyendo datos del puerto serie
