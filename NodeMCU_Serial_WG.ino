@@ -15,6 +15,11 @@ char cmdX0[] = "\x02" "00X016" "\x03";  // Comando X0 - Reiniciar
 //Estructura de Respuesta Comando Status
 char stx_s0[] = "\x02" "00";
 char etx_s0[] = "1B" "\x03";
+string scb1_s0 = "0";
+string scb2_s0 = "0";
+string scb3_s0 = "0";
+string scb4_s0 = "0";
+string data_s0 = "";
 
 char cmdS0_rta[] = "\x02""00S0111134247025""\x03"; // Respuesta Comando Status
 
