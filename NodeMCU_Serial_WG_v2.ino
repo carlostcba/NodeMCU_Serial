@@ -13,19 +13,21 @@ char cmdR2[] = "\x02" "00R21A" "\x03";  // Comando R2 - Desactivar Rele 2
 char cmdX0[] = "\x02" "00X016" "\x03";  // Comando X0 - Reiniciar
 
 // Estructura de Respuesta Comando Status
-String stx_s0 = "\x02" "00" "S0";
-String csta_s0 = "0000"
-String data_s0 = ""
-String etx_s0 = "1B" "\x03";
+String stx_s0 = "\x02" "00" "S0"; // STX mas el ID de placa y el comando S0
+String csta_s0 = "0000" // Variable inicializada en 0000
+String data_s0 = "" // Variable inicializada vacia
+String etx_s0 = "1B" "\x03"; // CHECKSUM mas ETX
 
 
 String DDMM1_b = "0001";  // Detector de masa metalica 1 esta accionado
 String DDMM2_b = "0002";  // Detector de masa metalica 2 esta accionado
+String RELE1_b = "0040";  // Relay 1 activado
+String RELE2_b = "0080";  // Relay 1 activado
+String TARJ_b = "0100";   // Lectura de Tarjeta
 String PULS_b = "0400";   // Pulsador de papel fue accionado
-String DDMM1_2_b = "0003"; // Detector de masa metalica 1 y 2 esta accionado
 
 // Armado de respuesta Status
-String rta_s0 = stx_s0 + csta_s0 + data_s0 + etx_s0
+String rta_s0 = "0000"  // Respuesta Inicializada en 0000 
 
 
 WIEGAND wg1; // Declarar Wiegand 1
@@ -43,12 +45,11 @@ void loop() {
   // Verifica si hay una tarjeta RFID disponible
   if (wg1.available()) {
     unsigned long cardCode_wg1 = wg1.getCode();
-    String cardCodeStr = stx_s0 + "00S00800" + String(cardCode_wg1) + "\x03";
+    String cardCodeStr = stx_s0 + String(cardCode_wg1) + "\x03";
     data_s0 = cardCodeStr;
-    Serial.println(cardCodeStr);
-
+    csta_s0 = TARJ_b;
     // Construir la respuesta dinámica
-    String rta_s0 = stx_s0 + scb1_s0 + scb2_s0 + scb3_s0 + scb4_s0 + data_s0 + etx_s0;
+    String rta_s0 = stx_s0 + csta_s0 + data_s0 + etx_s0;
     sendResponse(rta_s0);
   }
 
@@ -56,9 +57,6 @@ void loop() {
   if (Serial.available() > 0) {
     String command = Serial.readStringUntil('\n');
     command.trim();
-
-    // Construir la respuesta dinámica
-    String rta_s0 = stx_s0 + scb1_s0 + scb2_s0 + scb3_s0 + scb4_s0 + data_s0 + etx_s0;
 
     if (command == String(cmdS0)) {
       sendResponse(rta_s0);
