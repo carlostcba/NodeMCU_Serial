@@ -14,8 +14,8 @@ char cmdX0[] = "\x02" "00X016" "\x03";  // Comando X0 - Reiniciar
 
 // Estructura de Respuesta Comando Status
 String stx_s0 = "\x02" "00" "S0"; // STX mas el ID de placa y el comando S0
-String csta_s0 = "0000" // Variable inicializada en 0000
-String data_s0 = "" // Variable inicializada vacia
+String csta_s0 = "0000"; // Variable inicializada en 0000
+String data_s0 = ""; // Variable inicializada vacia
 String etx_s0 = "1B" "\x03"; // CHECKSUM mas ETX
 
 
@@ -27,7 +27,7 @@ String TARJ_b = "0100";   // Lectura de Tarjeta
 String PULS_b = "0400";   // Pulsador de papel fue accionado
 
 // Armado de respuesta Status
-String rta_s0 = "0000"  // Respuesta Inicializada en 0000 
+String rta_s0 = "0000";  // Respuesta Inicializada en 0000 
 
 
 WIEGAND wg1; // Declarar Wiegand 1
