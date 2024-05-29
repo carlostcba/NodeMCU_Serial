@@ -27,7 +27,7 @@ String TARJ_b = "0100";   // Lectura de Tarjeta
 String PULS_b = "0400";   // Pulsador de papel fue accionado
 
 // Armado de respuesta Status
-String rta_s0 = "0000";  // Respuesta Inicializada en 0000 
+String rta_s0 = stx_s0 + csta_s0 + data_s0 + etx_s0 ;
 
 
 WIEGAND wg1; // Declarar Wiegand 1
@@ -45,7 +45,7 @@ void loop() {
   // Verifica si hay una tarjeta RFID disponible
   if (wg1.available()) {
     unsigned long cardCode_wg1 = wg1.getCode();
-    String cardCodeStr = stx_s0 + String(cardCode_wg1) + "\x03";
+    String cardCodeStr = String(cardCode_wg1);
     data_s0 = cardCodeStr;
     csta_s0 = TARJ_b;
     // Construir la respuesta dinámica
