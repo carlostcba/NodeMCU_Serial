@@ -2,7 +2,7 @@ const int relay1 = D3;  // Variable Rele 1
 const int relay2 = D4;  // Variable Rele 2
 
 char cmdS0[] = "\x02" "00S01B" "\x03";  // Comando Status
-char cmdS1[] = "\x02" "0011SA" "\x03";  // Comando S1 - Activar Rele 1
+char cmdS1[] = "\x02" "00S11A" "\x03";  // Comando S1 - Activar Rele 1
 char cmdS2[] = "\x02" "00S219" "\x03";  // Comando S2 - Activar Rele 2
 char cmdR1[] = "\x02" "00R11B" "\x03";  // Comando R1 - Desactivar Rele 1
 char cmdR2[] = "\x02" "00R21A" "\x03";  // Comando R2 - Desactivar Rele 2
